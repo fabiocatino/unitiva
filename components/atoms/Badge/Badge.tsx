@@ -3,7 +3,7 @@ import { BadgeContainer } from "./styles";
 export type Variant = "primary" | "secondary";
 
 interface BadgeProps {
-  children: JSX.Element | string | number;
+  children: JSX.Element | string | number | undefined;
   variant?: Variant;
 }
 

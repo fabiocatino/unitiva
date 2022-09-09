@@ -7,20 +7,21 @@ import {
   CardBadge,
   CardContainer,
   DescriptionText,
+  HighLightedText,
   ItemName,
 } from "./styles";
 
 type CardProps = {
-  isLast?: boolean;
-  name?: string;
   product?: Product;
 };
 
-function Card({ isLast, product }: CardProps) {
+function Card({ product }: CardProps) {
+  const isLast = product?.qty === 1;
+  const isOutOfStock = product?.qty === 0;
   return (
     <CardContainer>
-      <CardBadge variant={product?.qty === 1 ? "secondary" : "primary"}>
-        {product?.qty === 1 ? "LAST" : 5}
+      <CardBadge variant={isLast ? "secondary" : "primary"}>
+        {isLast ? "LAST" : product?.qty}
       </CardBadge>
       <Image
         objectFit="cover"
@@ -31,16 +32,30 @@ function Card({ isLast, product }: CardProps) {
       />
       <ItemName>{product?.title}</ItemName>
       <DescriptionText>{product?.sku}</DescriptionText>
-      <DescriptionText>Qty: {product?.qty}</DescriptionText>
+      <DescriptionText>
+        Qty: {product?.qty}{" "}
+        {product && product?.qty > 0 && product?.qty <= 3 && (
+          <HighLightedText>
+            Last piece{product?.qty > 1 && "s"}, buy it now!
+          </HighLightedText>
+        )}
+      </DescriptionText>
+
       <DescriptionText>Price: {product?.price}</DescriptionText>
-      <ButtonsContainer>
-        <Select>
-          <option value="0">Select car:</option>
-          <option value="1">Audi</option>
-          <option value="2">BMW</option>
-        </Select>
-        <Button size="small" variant="primary">
-          Add
+      <ButtonsContainer {...{ isOutOfStock }}>
+        {!isOutOfStock && (
+          <Select>
+            <option value="0">Select size</option>
+            <option value="1">Audi</option>
+            <option value="2">BMW</option>
+          </Select>
+        )}
+        <Button
+          disabled={isOutOfStock}
+          size={isOutOfStock ? "big" : "small"}
+          variant={isOutOfStock ? "secondary" : "primary"}
+        >
+          {isOutOfStock ? "Added All" : "Add"}
         </Button>
       </ButtonsContainer>
     </CardContainer>

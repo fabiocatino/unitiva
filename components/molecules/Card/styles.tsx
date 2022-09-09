@@ -32,10 +32,11 @@ export const DescriptionText = styled.p`
 `;
 DescriptionText.displayName = "DescriptionText";
 
-export const ButtonsContainer = styled.div`
+export const ButtonsContainer = styled.div<{ isOutOfStock: boolean }>`
   margin-top: auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: ${({ isOutOfStock }) =>
+    isOutOfStock ? "flex-end" : "space-between;"};
 `;
 ButtonsContainer.displayName = "ButtonsContainer";
 
@@ -49,3 +50,9 @@ export const CardBadge = styled(Badge)<{ variant?: Variant }>`
   z-index: 100;
 `;
 CardBadge.displayName = "CardBadge";
+
+export const HighLightedText = styled.span`
+  color: red;
+  font-size: 0.9em;
+`;
+HighLightedText.displayName = "HighLightedText";
