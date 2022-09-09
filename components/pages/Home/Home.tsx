@@ -1,4 +1,5 @@
 import Card from "molecules/Card";
+import Footer from "organisms/Footer";
 import { Product, useGetProductsQuery } from "redux/features/api/productsApi";
 import { Container, SecondaryContainer } from "./styles";
 
@@ -6,7 +7,6 @@ type Props = {};
 
 function Home({}: Props) {
   const { data } = useGetProductsQuery();
-  console.log(data);
   return (
     <>
       <Container>
@@ -18,6 +18,7 @@ function Home({}: Props) {
           <Card key={product.id} {...{ product }} />
         ))}
       </SecondaryContainer>
+      <Footer />
     </>
   );
 }

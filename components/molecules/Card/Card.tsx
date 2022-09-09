@@ -1,5 +1,5 @@
 import Button from "atoms/Button";
-import Select from "atoms/Select";
+import DropdownList from "atoms/DropdownList";
 import Image from "next/image";
 import { Product } from "redux/features/api/productsApi";
 import {
@@ -43,12 +43,7 @@ function Card({ product }: CardProps) {
 
       <DescriptionText>Price: €{product?.price.toFixed(2)}</DescriptionText>
       <ButtonsContainer {...{ isOutOfStock }}>
-        {!isOutOfStock && (
-          <Select>
-            <option value="0">Select size</option>
-            <option value="1">{product?.size}</option>
-          </Select>
-        )}
+        {!isOutOfStock && <DropdownList list={[product?.size]} />}
         <Button
           disabled={isOutOfStock}
           size={isOutOfStock ? "big" : "small"}
