@@ -41,13 +41,12 @@ function Card({ product }: CardProps) {
         )}
       </DescriptionText>
 
-      <DescriptionText>Price: {product?.price}</DescriptionText>
+      <DescriptionText>Price: €{product?.price.toFixed(2)}</DescriptionText>
       <ButtonsContainer {...{ isOutOfStock }}>
         {!isOutOfStock && (
           <Select>
             <option value="0">Select size</option>
-            <option value="1">Audi</option>
-            <option value="2">BMW</option>
+            <option value="1">{product?.size}</option>
           </Select>
         )}
         <Button

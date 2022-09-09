@@ -7,6 +7,7 @@ export type Product = {
   sku: string;
   qty: number;
   image: string;
+  size: number;
 };
 
 export const productsApi = createApi({
