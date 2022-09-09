@@ -1,0 +1,26 @@
+{
+  "Product": {
+    "title": {
+      "string": [
+        "Ray-Ban Wayfare",
+        "Ray-Ban Round",
+        "Ray-Ban Clubmaster",
+        "Ray-Ban RB3954",
+        "Ray-Ban Aviator"
+      ]
+    },
+    "sku": {
+      "string": [
+        "RB3210 2112A",
+        "RB9210 1149",
+        "RB3054 9093C8 53",
+        "RB3954 2345 53",
+        "RB6211 5122A 50"
+      ]
+    },
+    "qty": {
+      "int": [1, 0, 3]
+    },
+    "price": { "int": { "min": 150, "max": 300 } }
+  }
+}
