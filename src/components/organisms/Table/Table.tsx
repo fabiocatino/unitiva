@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BiSortAlt2 } from "react-icons/bi";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { MdRemoveCircleOutline } from "react-icons/md";
@@ -37,7 +37,9 @@ function Table({ cart }: TableProps) {
       })
     );
   };
-
+  useEffect(() => {
+    setList(cart);
+  }, [cart]);
   const removeHandler = (item: CartProducts) => {
     dispatch(deleteItem(item));
   };

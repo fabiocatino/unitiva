@@ -1,23 +1,33 @@
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useTotalQuantity } from "../../../redux/features/cart/cartSlice";
+import {
+  deleteCart,
+  useTotalQuantity,
+} from "../../../redux/features/cart/cartSlice";
 import Button from "../../atoms/Button";
-import { Container } from "./styles";
+import { Container, SecondaryContainer } from "./styles";
 
 function ThankYou() {
   const quantity = useTotalQuantity();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const buyMoreHandler = () => {
+    dispatch(deleteCart());
+    navigate("/");
+  };
   return (
-    <>
-      <Container>
+    <Container>
+      <SecondaryContainer>
         <h2>Thank you!</h2>
         <h3>
           Your {quantity} product{quantity > 1 ? "s" : ""} will be shipped soon!
         </h3>
-        <Button size="huge" onClick={() => navigate("/")}>
+        <Button size="huge" onClick={buyMoreHandler}>
           Buy more
         </Button>
-      </Container>
-    </>
+      </SecondaryContainer>
+    </Container>
   );
 }
 

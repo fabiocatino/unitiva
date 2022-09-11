@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, CartProducts } from "../../../redux/features/cart/cartSlice";
+import { CartState } from "../../../types/cartProductState";
 import { Product } from "../../../types/products";
 import Button from "../../atoms/Button";
 import DropdownList from "../../atoms/DropdownList";
@@ -20,9 +21,11 @@ type CardProps = {
 
 function Card({ product }: CardProps) {
   const dispatch = useDispatch();
-  const cart = useSelector((state: any) => state.cart.cartItems);
+  const cart = useSelector((state: CartState) => state.cart.cartItems);
   const isLast = product?.qty === 1;
   const [isOutOfStock] = useState(product?.qty === 0);
+  const [isMaxQty, setIsMaxQty] = useState(false);
+  const [qtyInCart, setQtyInCart] = useState(0);
 
   const addItemHandler = (product: Product) => {
     const itemInCart = cart?.find(
@@ -40,11 +43,23 @@ function Card({ product }: CardProps) {
     );
   };
 
+  useEffect(() => {
+    const itemInCart = cart?.find(
+      (item: CartProducts) => item.id === product?.id
+    );
+    if (itemInCart?.cartQty === product?.qty) {
+      setIsMaxQty(true);
+    }
+    setQtyInCart(itemInCart?.cartQty || 0);
+  }, [cart, product?.id, product?.qty]);
+
   return (
     <CardContainer>
-      <CardBadge variant={isLast ? "secondary" : "primary"}>
-        {isLast ? "LAST" : product?.qty}
-      </CardBadge>
+      {(qtyInCart >= 1 || isLast) && (
+        <CardBadge variant={isLast ? "secondary" : "primary"}>
+          {isLast ? "LAST" : qtyInCart}
+        </CardBadge>
+      )}
       <img
         alt="img"
         height={125}
@@ -65,7 +80,7 @@ function Card({ product }: CardProps) {
       <DescriptionText>Price: €{product?.price.toFixed(2)}</DescriptionText>
       <ButtonsContainer {...{ isOutOfStock }}>
         {!isOutOfStock && <DropdownList list={[product!.size.toString()]} />}
-        {isOutOfStock ? (
+        {isMaxQty || isOutOfStock ? (
           <Button disabled size="big" variant="secondary">
             Added All
           </Button>

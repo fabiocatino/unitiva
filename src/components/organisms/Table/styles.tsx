@@ -9,7 +9,7 @@ export const Container = styled.div`
   justify-content: center;
 
   @media screen and (max-width: 780px) {
-    width: 100%;
+    padding: 1rem 0;
   }
   #add-btn {
     color: #6b7da2;
@@ -43,8 +43,8 @@ export const TableContainer = styled.table`
     padding: 1rem;
 
     @media screen and (max-width: 780px) {
-      min-width: 100%;
-      font-size: 0.8em;
+      font-size: 0.7em;
+      padding: 0.5rem;
     }
 
     &:first-child {
@@ -53,6 +53,10 @@ export const TableContainer = styled.table`
 
     button {
       float: right;
+      @media screen and (max-width: 780px) {
+        font-size: 0.7em;
+        padding: 0;
+      }
     }
   }
 

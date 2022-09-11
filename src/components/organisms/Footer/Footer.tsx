@@ -1,6 +1,10 @@
 import { IoChevronBackCircleOutline } from "react-icons/io5";
+import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useTotalQuantity } from "../../../redux/features/cart/cartSlice";
+import {
+  deleteCart,
+  useTotalQuantity,
+} from "../../../redux/features/cart/cartSlice";
 import Button from "../../atoms/Button";
 import { BackContainer, Container, ForwardContainer } from "./styles";
 
@@ -8,13 +12,14 @@ function Footer() {
   const quantity = useTotalQuantity();
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const handleNavigation = () => {
     location.pathname === "/"
       ? navigate("/cart")
       : location.pathname === "/cart"
-      ? navigate("/thank-you")
-      : navigate("/");
+      ? quantity >= 1 && navigate("/thank-you")
+      : dispatch(deleteCart()) && navigate("/");
   };
   return (
     <Container>

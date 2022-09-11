@@ -4,7 +4,7 @@ import Card from "../../molecules/Card/Card";
 import { Container, SecondaryContainer } from "./styles";
 
 function Home() {
-  const { data } = useGetProductsQuery();
+  const { data, isLoading } = useGetProductsQuery();
 
   return (
     <>
@@ -13,9 +13,11 @@ function Home() {
         <span>{data?.length} products available</span>
       </Container>
       <SecondaryContainer>
-        {data?.map((product: Product) => (
-          <Card key={product.id} {...{ product }} />
-        ))}
+        {isLoading
+          ? "Loading..."
+          : data?.map((product: Product) => (
+              <Card key={product.id} {...{ product }} />
+            ))}
       </SecondaryContainer>
     </>
   );

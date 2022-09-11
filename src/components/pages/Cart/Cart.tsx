@@ -3,13 +3,13 @@ import {
   useTotalPrice,
   useTotalQuantity,
 } from "../../../redux/features/cart/cartSlice";
+import { CartState } from "../../../types/cartProductState";
 import Table from "../../organisms/Table";
-
 import { Container } from "../Home/styles";
 import { PriceContainer, Total } from "./styles";
 
 function Cart() {
-  const cart = useSelector((state: any) => state.cart);
+  const cart = useSelector((state: CartState) => state.cart);
   const quantity = useTotalQuantity();
   const totalPrice = useTotalPrice();
 
